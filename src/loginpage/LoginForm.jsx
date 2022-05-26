@@ -4,7 +4,8 @@ import {
   useAuthStateContext,
 } from "../AuthContext/AuthContext";
 import { actionType } from "../AuthContext/AuthReducer";
-import { fetchToken, fetchUserData } from "../axios/axios";
+
+import { get, post } from "../services/axios";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
@@ -19,10 +20,10 @@ export default function LoginForm() {
     dispatch({
       type: actionType.login_request,
     });
+    
 
-    fetchToken(username, password).then((response) => {
+    post("login",{username,password}).then((response) => {
       const { success, data, error } = response;
-
       if (!success) {
         dispatch({
           type: actionType.login_error,
@@ -38,7 +39,7 @@ export default function LoginForm() {
 
   useEffect(() => {
   if(token){
-    fetchUserData(token)
+    get('users/me',{ headers: { authorization: token}})
     .then(({ success, data }) => {
       if (success) {
         dispatch({
