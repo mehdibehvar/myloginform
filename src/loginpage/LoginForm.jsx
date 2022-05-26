@@ -62,7 +62,9 @@ export default function LoginForm() {
     });
   }
   }, [dispatch, token]);
-  //{//uselayouteffect is sync this means that wait until our sideeffect be`\done,but useeffect is asynce,we use useeffect 95% and uselayouteffect 5%//}
+  //uselayouteffectبه اخرین رندر اشاره دارد
+  //{//uselayouteffect is sync this means that wait until our sideeffect be`\done
+  //,but useeffect is asynce,we use useeffect 95% and uselayouteffect 5%//}
   useLayoutEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
